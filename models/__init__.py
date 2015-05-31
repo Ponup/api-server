@@ -6,6 +6,7 @@ class Player( ndb.Model ):
 
 class Score( ndb.Model ):
 	game_name = ndb.StringProperty()
+        game_level_number = ndb.IntegerProperty()
 	player_name = ndb.StringProperty()
 	value = ndb.IntegerProperty()
 
