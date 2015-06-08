@@ -10,8 +10,8 @@ def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
 
     if isinstance(obj, datetime):
-        serial = obj.isoformat()
-        return serial
+        return { 'date': obj.date().isoformat(), 'time': obj.time().isoformat() }
+
     raise TypeError ("Type not serializable")
 
 class ListController( webapp2.RequestHandler ):
