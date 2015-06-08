@@ -13,7 +13,7 @@ class Score( ndb.Model ):
 
     @classmethod
     def find_by_game( cls, game_name, limit = 20 ):
-        return cls.query().filter( cls.game_name == game_name ).fetch( limit )
+        return cls.query().filter( cls.game_name == game_name ).order( -cls.value ).fetch( limit )
 
 class Game( ndb.Model ):
     alias = ndb.StringProperty()

@@ -4,6 +4,16 @@ import json
 
 from models import Score
 
+from datetime import datetime
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, datetime):
+        serial = obj.isoformat()
+        return serial
+    raise TypeError ("Type not serializable")
+
 class ListController( webapp2.RequestHandler ):
 
 	def get( self ):
@@ -12,7 +22,7 @@ class ListController( webapp2.RequestHandler ):
 
 		scores = [ score.to_dict() for score in Score.find_by_game( game_name, limit ) ]
 
-		body = json.dumps( scores )
+		body = json.dumps( scores, default = json_serial )
 
                 self.response.headers.add_header( 'Access-Control-Allow-Origin', '*' )
 		self.response.content_type = 'application/json'
