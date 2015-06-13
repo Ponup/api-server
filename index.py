@@ -4,12 +4,15 @@ import webapp2, os, logging
 from webapp2_extras import routes
 
 import controller.score as score
+import controller.game as game
 
 import webob.exc
 
 routes = [
 	webapp2.Route( '/score/list', handler = score.ListController ),
 	webapp2.Route( '/score/add', handler = score.AddController ),
+	webapp2.Route( '/game/list', handler = game.ListController ),
+	webapp2.Route( '/game/add', handler = game.AddController ),
 ]
 
 def error_handler( request, response, exception ):

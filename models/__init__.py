@@ -16,6 +16,19 @@ class Score( ndb.Model ):
         return cls.query().filter( cls.game_name == game_name ).order( -cls.value ).fetch( limit )
 
 class Game( ndb.Model ):
-    alias = ndb.StringProperty()
-    name = ndb.StringProperty()
+    alias = ndb.StringProperty( required = True )
+    name = ndb.StringProperty( required = True )
+    platforms = ndb.StringProperty( repeated = True )
+    category = ndb.StringProperty()
+
+    description = ndb.StringProperty()
+
+    download_link_linux = ndb.StringProperty()
+    download_link_osx = ndb.StringProperty()
+    download_link_windows = ndb.StringProperty()
+    download_link_java = ndb.StringProperty()
+    
+    store_link_chrome = ndb.StringProperty()
+    store_link_android = ndb.StringProperty()
+    store_link_ios = ndb.StringProperty()
 
