@@ -1,13 +1,15 @@
 
 from base import BaseController
 from models import Game 
-from datetime import datetime
 
 class ListController( BaseController ):
 
-	def get( self ):
+        def get_cache_key( self ):
+                return 'game_list'
+
+	def do_get( self ):
 		games = [ game.to_dict() for game in Game.query() ]
-                self.send_json_response( games )
+                return self.data_to_json_string( games )
 
 class AddController( BaseController ):
 

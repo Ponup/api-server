@@ -1,16 +1,26 @@
 
 from base import BaseController
 from models import Score
-from datetime import datetime
 
 class ListController( BaseController ):
 
-	def get( self ):
-		game_name = self.request.get( 'game_name' )
-                limit = int( self.request.get( 'limit', '20' ) )
+        default_list_limit = '20'
 
-		scores = [ score.to_dict() for score in Score.find_by_game( game_name, limit ) ]
-                self.send_json_response( scores )
+        def get_request_params( self ):
+                return {
+		    'game_name': self.request.get( 'game_name' ),
+                    'limit': int( self.request.get( 'limit', self.default_list_limit ) )
+                }
+        
+        def get_cache_key( self ):
+                params = self.get_request_params()
+                return 'score_list_%s_%d' % ( params['game_name'], params['limit'] )
+
+	def do_get( self ):
+	        params = self.get_request_params()
+
+		scores = [ score.to_dict() for score in Score.find_by_game( params['game_name'], params['limit'] ) ]
+                return self.data_to_json_string( scores )
 
 class AddController( BaseController ):
 

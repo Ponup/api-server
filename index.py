@@ -23,6 +23,8 @@ def error_handler( request, response, exception ):
 		logging.exception( exception )
 		response.write( 'Internal error' )
 
+logging.getLogger().setLevel(logging.DEBUG)
+
 app = webapp2.WSGIApplication( routes, debug = True )
 app.error_handlers[404] = error_handler
 app.error_handlers[500] = error_handler
