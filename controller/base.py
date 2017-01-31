@@ -46,7 +46,7 @@ class BaseController( webapp2.RequestHandler ):
 
     def send_json_response( self, data, convert = True ):
 	json_string = self.data_to_json_string( data ) if convert else data 
-	self.send_response( 'application/json', json_string, { 'Access-Control-Allow-Origin', '*' } )
+	self.send_response( 'application/json', json_string, { 'Access-Control-Allow-Origin': '*' } )
 
     def send_response( self, content_type, body, headers = None ):
         if isinstance( headers, dict ):
